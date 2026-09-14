@@ -27,7 +27,7 @@ function Login() {
 
         if(result.success){
 
-            localStorage.setItem(
+            sessionStorage.setItem(
                 "access_token",
                 result.access_token
             );

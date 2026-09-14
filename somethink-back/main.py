@@ -22,9 +22,6 @@ app.add_middleware(
 class signup(BaseModel):
     id: str
     password: str
-    email: str
-    name: str
-    phone: int
 
 class login(BaseModel):
     id: str

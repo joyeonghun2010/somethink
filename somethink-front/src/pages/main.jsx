@@ -39,15 +39,11 @@ function Main() {
 
     const navigate = useNavigate();
 
-    const token = localStorage.getItem("access_token");
+    const token = sessionStorage.getItem("access_token");
 
     const starttime = 1800;
     const [timeleft, settimeleft] = useState(starttime);
     const [is_running, setis_running] = useState(false);
-
-    const [isLogin, setIsLogin] = useState(
-        !!localStorage.getItem("access_token")
-    );
 
     useEffect(() => {
         if (!is_running) return;
