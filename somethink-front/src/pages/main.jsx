@@ -71,7 +71,7 @@ function Main() {
     return (
         <div className={styles.main}>
             <div className={styles.profileShowed}>
-                token ? <Profile /> : <Authbutton />
+                {token ? <Profile /> : <Authbutton />}
             </div>
             <div className={styles.head}>
                 <h1 className={styles.title}>SOMETHINK</h1>
