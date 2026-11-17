@@ -1,0 +1,561 @@
+/* 프로필 화면 — 왼쪽은 저장된 프로필 카드, 오른쪽은 수정 폼 (좁은 화면에서는 위아래로) */
+
+.layout {
+  display: grid;
+  grid-template-columns: 380px minmax(0, 1fr);
+  align-items: start;
+  gap: 24px;
+}
+
+.icon {
+  display: block;
+  flex-shrink: 0;
+}
+
+/* p 의 기본 여백을 없애서 ui.field 의 간격만 쓰도록 */
+.message {
+  margin: 0;
+}
+
+/* ── 프로필 카드 ─────────────────────────────────────── */
+.profileCard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+}
+
+/* 흰 여백 + 검은 테두리 — 카드의 단단한 그림자와 같은 결로 */
+.bigAvatar {
+  box-shadow: 0 0 0 4px var(--surface), 0 0 0 5px var(--line-strong), 0 12px 30px rgba(22, 20, 15, 0.12);
+}
+
+.identityText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.displayName {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.handle {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.email {
+  max-width: 100%;
+  color: var(--ink-2);
+  font-size: 0.92rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.emailLink {
+  border-radius: 4px;
+  text-decoration: underline;
+  text-decoration-color: var(--subtle);
+  text-underline-offset: 3px;
+}
+
+.emailLink:hover {
+  color: var(--ink);
+  text-decoration-color: var(--ink);
+}
+
+.emailLink:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.since {
+  margin: 10px 0 0;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-size: 0.85rem;
+  font-weight: 700;
+  word-break: keep-all;
+}
+
+.sinceDays {
+  font-weight: 800;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.subheading {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.bio {
+  margin: 0;
+  line-height: 1.65;
+  white-space: pre-line;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* 미니 통계: 큰 숫자 위, 이름 아래 (읽는 순서는 이름 → 숫자) */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 16px 4px;
+  border-radius: var(--radius-lg);
+  background: var(--surface-2);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  padding: 0 8px;
+  text-align: center;
+}
+
+.stat + .stat {
+  border-left: 1px solid var(--line);
+}
+
+.statLabel {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  word-break: keep-all;
+}
+
+.statValue {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.statUnit {
+  margin-left: 1px;
+  color: var(--ink-2);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.logout {
+  width: 100%;
+}
+
+/* ── 수정 폼 ─────────────────────────────────────────── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.formHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fieldPair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 20px;
+}
+
+.optional {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.helpRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.counter {
+  flex-shrink: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.counterFull {
+  color: var(--ink);
+  font-weight: 800;
+}
+
+/* fieldset 기본 테두리·여백·min-width(min-content) 를 지워야 좁은 화면에서 넘치지 않아요 */
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* float 을 주면 legend 가 테두리 자리에서 빠져나와 다른 항목처럼 gap 간격을 따라요 */
+.legend {
+  float: left;
+  width: 100%;
+  padding: 0;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  max-width: 100%;
+}
+
+/* 하루 목표: [−] 이론 [ 3 ] 개 [+] */
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stepButton {
+  font: inherit;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.12s ease, background-color 0.12s ease, color 0.12s ease;
+}
+
+.stepButton:hover:not([aria-disabled="true"]) {
+  transform: scale(1.05);
+}
+
+.stepButton:active:not([aria-disabled="true"]) {
+  transform: scale(0.94);
+  background: var(--ink-2);
+  color: #fff;
+}
+
+/* disabled 대신 aria-disabled: 끝값에 닿아도 포커스가 버튼에 남아 있게 */
+.stepButton[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.stepButton:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.goalBox {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--muted);
+  font-weight: 700;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+/* 입력칸 자체의 테두리 대신 상자 전체로 포커스를 보여줘요 (ui.input 과 같은 모양) */
+.goalBox:focus-within {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.goalInput {
+  font: inherit;
+  width: 3ch;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-align: center;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.goalInput:focus {
+  outline: none;
+}
+
+.goalInput::-webkit-outer-spin-button,
+.goalInput::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+/* 아바타 색상: 미리보기 + 색 견본(라디오) */
+.colorRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.preview {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  background: var(--surface-2);
+}
+
+.previewLabel {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  /* 선택 테두리가 잘리지 않을 만큼 */
+  padding: 6px;
+}
+
+.swatch {
+  position: relative;
+  display: inline-flex;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+}
+
+/* 진짜 라디오는 투명하게 덮어둬서 클릭·방향키·스크린리더가 그대로 동작해요 */
+.swatchInput {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.swatchFace {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-pill);
+  color: #fff;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.swatch:hover .swatchFace {
+  transform: scale(1.08);
+}
+
+.swatchAuto {
+  gap: 8px;
+  width: auto;
+  padding: 0 14px 0 5px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.swatch:hover .swatchAuto {
+  transform: scale(1.04);
+}
+
+.swatchDot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  color: #fff;
+}
+
+.swatchInput:checked + .swatchFace {
+  box-shadow: 0 0 0 3px var(--surface), 0 0 0 5px var(--ink);
+}
+
+.swatchInput:checked + .swatchAuto {
+  border-color: var(--ink);
+}
+
+.swatchInput:focus-visible + .swatchFace {
+  outline: 3px solid var(--accent);
+  outline-offset: 7px;
+}
+
+/* 저장 줄 */
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.status {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.dirtyHint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.dirtyDot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.note {
+  margin: -10px 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+/* ── 반응형 ──────────────────────────────────────────── */
+@media (max-width: 959px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* 카드가 넓어지는 태블릿 폭에서는 프로필 머리 부분을 가로로 */
+@media (min-width: 640px) and (max-width: 959px) {
+  .identity {
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .identityText {
+    align-items: flex-start;
+  }
+
+  .logout {
+    align-self: flex-start;
+    width: auto;
+  }
+}
+
+@media (max-width: 639px) {
+  .layout .card {
+    padding: 24px 20px;
+  }
+
+  .fieldPair {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+  }
+
+  .colorRow {
+    gap: 10px;
+  }
+
+  .actions {
+    width: 100%;
+  }
+
+  .action {
+    flex: 1;
+  }
+}

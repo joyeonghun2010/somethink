@@ -1,0 +1,54 @@
+.logo {
+  --logo-cut: #fff;
+  --logo-spark: var(--accent-bright);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+  line-height: 1;
+}
+
+/* 어두운 배경: 흰 타일 + 먹색 말풍선 */
+.light {
+  --logo-cut: var(--ink);
+  --logo-spark: var(--accent);
+  color: #fff;
+}
+
+.mark {
+  display: block;
+  flex-shrink: 0;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.word {
+  font-size: 1.32rem;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.some {
+  font-weight: 500;
+}
+
+.think {
+  font-weight: 900;
+}
+
+.tagline {
+  color: var(--muted);
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.light .tagline {
+  color: var(--on-night-muted);
+}

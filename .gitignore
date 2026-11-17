@@ -35,6 +35,7 @@ __pycache__/
 
 # AI / IDE temporary files
 .ai/
+.claude/
 
 # Node
 node_modules/

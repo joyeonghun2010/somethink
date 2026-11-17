@@ -1,0 +1,506 @@
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.main {
+  flex: 1;
+}
+
+/* ── 헤더 ───────────────────────────────────────────── */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(1.4) blur(14px);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* 홈: 첫 화면 사진 위에 겹쳐 놓습니다. */
+.headerFixed {
+  position: fixed;
+  right: 0;
+  left: 0;
+}
+
+.headerOverlay {
+  border-bottom-color: rgba(255, 255, 255, 0.14);
+  background: linear-gradient(to bottom, rgba(10, 9, 7, 0.55), rgba(10, 9, 7, 0));
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.headerInner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas: "logo nav actions";
+  align-items: center;
+  gap: 24px;
+  max-width: var(--page-max);
+  height: var(--header-h);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.logo {
+  grid-area: logo;
+  display: flex;
+  border-radius: 8px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.nav {
+  grid-area: nav;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.navLink {
+  position: relative;
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  color: var(--ink-2);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.navLink:hover {
+  background: rgba(22, 20, 15, 0.05);
+  color: var(--ink);
+}
+
+/* 선택된 메뉴: 글자 아래 짧은 밑줄 */
+.navLink::after {
+  content: "";
+  position: absolute;
+  right: 16px;
+  bottom: 4px;
+  left: 16px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transition: transform 0.2s var(--ease-out);
+}
+
+.navLinkActive {
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.navLinkActive::after {
+  transform: scaleX(1);
+}
+
+.navLink:focus-visible,
+.logo:focus-visible,
+.timerPill:focus-visible,
+.loginButton:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.actions {
+  grid-area: actions;
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 12px;
+}
+
+.authButtons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.loginButton {
+  font: inherit;
+  height: 36px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink-2);
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.loginButton:hover {
+  background: rgba(22, 20, 15, 0.05);
+  color: var(--ink);
+}
+
+.signupButton {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: #fff;
+}
+
+.signupButton:hover:not(:disabled) {
+  background: #2e2a23;
+}
+
+/* 사진 위에서는 글자를 흰색으로 */
+.headerOverlay .navLink,
+.headerOverlay .loginButton {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.headerOverlay .navLink:hover,
+.headerOverlay .loginButton:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.headerOverlay .navLinkActive {
+  color: #fff;
+}
+
+.headerOverlay .signupButton {
+  border-color: #fff;
+  background: #fff;
+  color: var(--ink);
+}
+
+.headerOverlay .signupButton:hover:not(:disabled) {
+  background: var(--surface-2);
+}
+
+.headerOverlay .timerPill {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+/* ── 헤더 타이머 ───────────────────────────────────── */
+.timerPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.timerText {
+  font-variant-numeric: tabular-nums;
+}
+
+.timerDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--subtle);
+}
+
+.timerRunning .timerDot {
+  background: var(--accent);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* ── 사용자 메뉴 ───────────────────────────────────── */
+.userMenu {
+  position: relative;
+}
+
+.avatarButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 6px 3px 3px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.avatarButton:hover {
+  border-color: var(--ink);
+}
+
+.avatarButton:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.headerOverlay .avatarButton {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.avatarChevron {
+  transition: transform 0.2s ease;
+}
+
+.avatarButton[aria-expanded="true"] .avatarChevron {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 60;
+  width: 220px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-soft);
+  animation: drop 0.18s var(--ease-out);
+}
+
+@keyframes drop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+.dropdownHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 6px;
+  padding: 10px 12px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.dropdownHeader strong,
+.dropdownHeader span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdownHeader strong {
+  font-weight: 800;
+}
+
+.dropdownHeader span {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.dropdownItem {
+  font: inherit;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--ink);
+  font-weight: 600;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dropdownItem:hover,
+.dropdownItem:focus-visible {
+  background: var(--surface-2);
+  outline: none;
+}
+
+/* ── 바닥글 ─────────────────────────────────────────── */
+.footer {
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.footerInner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 28px 48px;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 48px 24px 32px;
+}
+
+.footerBrand {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.footerTagline {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.footerNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 24px;
+}
+
+.footerLink {
+  border-radius: 4px;
+  color: var(--ink-2);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footerLink:hover {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.footerLink:focus-visible,
+.creditsSummary:focus-visible,
+.creditsList a:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.footerBottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px 32px;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 20px 24px 36px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.copyright {
+  margin: 0;
+}
+
+.credits {
+  max-width: 560px;
+}
+
+.creditsSummary {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 4px;
+  font-weight: 700;
+  list-style: none;
+  cursor: pointer;
+}
+
+.creditsSummary::-webkit-details-marker {
+  display: none;
+}
+
+.creditsSummary:hover {
+  color: var(--ink);
+}
+
+.creditsChevron {
+  transition: transform 0.2s ease;
+}
+
+.credits[open] .creditsChevron {
+  transform: rotate(180deg);
+}
+
+.creditsBody {
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.creditsBody p {
+  margin: 0 0 8px;
+  word-break: keep-all;
+}
+
+.creditsList {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.creditsList a {
+  color: var(--ink-2);
+  font-weight: 700;
+}
+
+/* ── 모바일 ─────────────────────────────────────────── */
+@media (max-width: 860px) {
+  .headerInner {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "logo actions"
+      "nav nav";
+    row-gap: 6px;
+    height: auto;
+    padding: 12px 16px 6px;
+  }
+
+  .nav {
+    justify-content: flex-start;
+    margin: 0 -16px;
+    padding: 0 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .navLink {
+    padding: 9px 12px;
+    font-size: 0.92rem;
+  }
+
+  .navLink::after {
+    right: 12px;
+    left: 12px;
+  }
+
+  .actions {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 420px) {
+  .loginButton {
+    padding: 0 8px;
+  }
+
+  .signupButton {
+    padding: 0 10px;
+  }
+}

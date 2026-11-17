@@ -1,0 +1,39 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-width: 520px;
+  margin: 40px auto 0;
+  padding: 52px 32px 44px;
+  text-align: center;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  background: var(--brass-soft);
+  color: var(--brass);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.desc {
+  margin: 0 0 14px;
+  color: var(--muted);
+  word-break: keep-all;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}

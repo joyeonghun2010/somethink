@@ -1,0 +1,555 @@
+/* 리더보드 화면: 머리말의 기간·기준 필터 → 나의 순위 · 시상대 → 순위표 */
+
+/* ── 필터 ───────────────────────────────────────────── */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filters button {
+  white-space: nowrap;
+}
+
+/* ── 배치 ───────────────────────────────────────────── */
+.board {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 24px;
+}
+
+/* ── 나의 순위 ──────────────────────────────────────── */
+.myCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rankLine {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  margin: 0;
+}
+
+.rankNumber {
+  font-size: clamp(3.2rem, 6vw, 4.4rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.rankOf {
+  color: var(--ink-2);
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.myStat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.myValue {
+  overflow-wrap: anywhere;
+}
+
+.note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: auto 0 0;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  background: var(--accent-soft);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.noteIcon {
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.noteIconTop {
+  background: var(--gold);
+}
+
+.myHeadline {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.myDesc {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.myAction {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+/* ── 시상대 ─────────────────────────────────────────── */
+/* 받침대가 카드 아래 가장자리에서 솟아오르도록 아래 여백을 없애고 모서리는 카드 곡선에 맞춰 자릅니다. */
+.podiumCard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow: hidden;
+}
+
+.board > .podiumCard {
+  padding-bottom: 0;
+}
+
+.podium {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-areas: "second first third";
+  align-items: end;
+  gap: 14px;
+  margin: auto 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.slotFirst {
+  grid-area: first;
+}
+
+.slotSecond {
+  grid-area: second;
+}
+
+.slotThird {
+  grid-area: third;
+}
+
+.podiumItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  text-align: center;
+}
+
+.podiumAvatar {
+  position: relative;
+  display: flex;
+  margin-bottom: 14px;
+}
+
+.medal {
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 3px solid var(--surface);
+  border-radius: 50%;
+  color: var(--ink);
+  font-size: 0.88rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.place1 .medal {
+  width: 34px;
+  height: 34px;
+  font-size: 1rem;
+}
+
+.medalGold {
+  background: var(--gold);
+}
+
+.medalSilver {
+  background: var(--silver);
+}
+
+.medalBronze {
+  background: var(--bronze);
+}
+
+.podiumName {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  max-width: 100%;
+  margin: 0;
+  font-weight: 800;
+}
+
+.place1 .podiumName {
+  font-size: 1.1rem;
+}
+
+.podiumHandle {
+  max-width: 100%;
+  margin: 2px 0 14px;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pedestal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+  margin: 0;
+  padding: 16px 8px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: var(--ink);
+  color: #fff;
+  transition: min-height 0.3s ease, background-color 0.2s ease;
+}
+
+.place1 .pedestal {
+  min-height: 150px;
+}
+
+.place2 .pedestal {
+  min-height: 112px;
+}
+
+.place3 .pedestal {
+  min-height: 84px;
+}
+
+/* 흰 글자 대비 4.5:1 을 넘기려고 accent 대신 accent-strong 을 씁니다. */
+.podiumMe .pedestal {
+  background: var(--accent-strong);
+}
+
+.pedestalLabel {
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.pedestalValue {
+  font-size: 1.3rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.place1 .pedestalValue {
+  font-size: 1.6rem;
+}
+
+/* 3위 → 2위 → 1위 순서로 받침대가 올라옵니다. */
+@media (prefers-reduced-motion: no-preference) {
+  .pedestal {
+    animation: raise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  }
+
+  .slotSecond .pedestal {
+    animation-delay: 0.08s;
+  }
+
+  .slotFirst .pedestal {
+    animation-delay: 0.16s;
+  }
+}
+
+@keyframes raise {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* ── 공통: 이름 · 나 배지 ───────────────────────────── */
+.ellipsis {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meBadge {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  height: 20px;
+  padding: 0 7px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-strong);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* ── 순위표 ─────────────────────────────────────────── */
+.tableCard {
+  grid-column: 1 / -1;
+}
+
+.table {
+  width: 100%;
+  margin-top: 18px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.table th {
+  padding: 0 12px 10px;
+  border-bottom: 1px solid var(--ink);
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.table .colRank {
+  width: 72px;
+}
+
+.table .colMetric {
+  width: 128px;
+  text-align: right;
+}
+
+.table .colActive {
+  color: var(--ink);
+}
+
+.rankCell {
+  font-size: 1.05rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.metricCell {
+  color: var(--muted);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.metricActive {
+  color: var(--ink);
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.rowMe td {
+  background: var(--accent-soft);
+}
+
+.rowMe td:first-child {
+  box-shadow: inset 4px 0 0 var(--accent);
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.userText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.nameLine {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  font-weight: 800;
+}
+
+.subLine {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* 좁으면 소개가 먼저 줄어들고, 아이디는 되도록 다 보이게 합니다. */
+.handle {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bio {
+  flex: 1 1 0;
+  min-width: 0;
+  padding-left: 8px;
+  border-left: 1px solid var(--line);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── 기록 없음 ─────────────────────────────────────── */
+.emptyCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.emptyBox {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.emptyIcon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 6px;
+  border-radius: 18px;
+  background: var(--brass-soft);
+  color: var(--brass);
+}
+
+.emptyTitle {
+  margin: 4px 0 0;
+  color: var(--ink);
+  font-size: 1.2rem;
+  font-weight: 800;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.emptyDesc {
+  margin: 0 0 8px;
+}
+
+/* ── 안내 ───────────────────────────────────────────── */
+.footnote {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 28px 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+/* ── 반응형 ─────────────────────────────────────────── */
+@media (max-width: 960px) {
+  .board {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .board > .podiumCard {
+    padding: 24px 16px 0;
+  }
+
+  .board > .tableCard {
+    padding: 24px 16px 12px;
+  }
+
+  .podium {
+    gap: 8px;
+  }
+
+  .pedestal {
+    padding: 12px 6px;
+  }
+
+  .place1 .pedestal {
+    min-height: 120px;
+  }
+
+  .place2 .pedestal {
+    min-height: 92px;
+  }
+
+  .place3 .pedestal {
+    min-height: 68px;
+  }
+
+  .pedestalValue {
+    font-size: 1.05rem;
+  }
+
+  .place1 .pedestalValue {
+    font-size: 1.25rem;
+  }
+
+  .table th,
+  .table td {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  .table .colRank {
+    width: 44px;
+  }
+
+  .table .colMetric {
+    width: 92px;
+  }
+
+  .hideOnSmall,
+  .bio {
+    display: none;
+  }
+}
+
+/* 정렬 기준 표시 (내림차순 화살표) */
+.sortIcon {
+  margin-left: 4px;
+  vertical-align: -2px;
+}

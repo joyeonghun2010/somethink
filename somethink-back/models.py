@@ -1,5 +1,12 @@
-from sqlalchemy import Column, Integer
+from sqlalchemy import Column, Integer, String
 from database import Base
+
+
+class Member(Base):
+    __tablename__ = "Members"
+
+    id = Column(String(50), primary_key=True, index=True)
+    password = Column(String(100), nullable=False)
 
 
 class Test(Base):
